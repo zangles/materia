@@ -8,8 +8,8 @@
                 <a href="{{ route('home') }}"><i class="fa fa-shield"></i> <span class="nav-label">Dashboard</span></a>
             </li>
             @foreach(Module::all() as $module)
-                <li class="{{ Request::is($module->alias) ? 'active' : '' }}">
-                    <a href="{{ route($module->alias) }}">
+                <li class="{{ Request::is($module->alias.'*') ? 'active' : '' }}">
+                    <a href="{{ route($module->alias.'.index') }}">
                         <i class="fa {{ config($module->alias.'.icon') }}"></i>
                         <span class="nav-label">{{ trans('user::general.module_'.$module->alias) }}</span>
                     </a>

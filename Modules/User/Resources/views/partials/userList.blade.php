@@ -17,8 +17,12 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <button class="btn btn-success" type="button" title="Editar"><i class="fa fa-edit"></i></button>
-                        <button class="btn btn-danger" type="button" title="Borrar"><i class="fa fa-trash"></i></button>
+                        <a href="{{ route('user.edit',$user) }}" class="btn btn-success" type="button" title="Editar"><i class="fa fa-edit"></i></a>
+                        <form action="{{ route('user.destroy', $user) }}" method="post" style="display: inline-block;">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+                            <button class="btn btn-danger" type="submit" title="Borrar"><i class="fa fa-trash"></i></button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

@@ -7,14 +7,14 @@
             <?php
                 $breadcrum = [
                     'Modulo Usuario' => '',
-                    'Usuarios' => route('user')
+                    'Usuarios' => route('user.index')
                 ];
             ?>
             @include('breadcrumb.index')
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a href="" class="btn btn-primary">
+                <a href="{{ route('user.create') }}" class="btn btn-primary">
                     <i class="fa fa-plus"></i>
                     Nuevo usuario
                 </a>
@@ -23,6 +23,7 @@
     </div>
 
     <div class="wrapper wrapper-content">
+        {!! Alert::render() !!}
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
                 @include('user::partials.userList')
