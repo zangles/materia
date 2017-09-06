@@ -14,10 +14,12 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a href="{{ route('user.create') }}" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    Nuevo usuario
-                </a>
+                @can('create', \App\User::class)
+                    <a href="{{ route('user.create') }}" class="btn btn-primary">
+                        <i class="fa fa-plus"></i>
+                        Nuevo usuario
+                    </a>
+                @endcan
             </div>
         </div>
     </div>

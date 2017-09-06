@@ -11,6 +11,7 @@
     <link href="{{ asset('/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 
     <link href="{{ asset('/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/plugins/sweetAlert/sweetalert.css') }}" rel="stylesheet">
 
 
     <!-- styles -->
@@ -34,6 +35,7 @@
     <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
     <script src="{{ asset('/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('/js/plugins/sweetAlert/sweetalert.min.js') }}"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="{{ asset('/js/inspinia.js') }}"></script>

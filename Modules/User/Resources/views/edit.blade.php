@@ -15,9 +15,9 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a href="" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    Modificar usuario
+                <a href="" class="btn btn-danger" onclick="parent.history.back();">
+                    <i class="fa fa-chevron-left"></i>
+                    Volver
                 </a>
             </div>
         </div>
@@ -30,6 +30,7 @@
                     <form action="{{ route('user.update', $user) }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
+                        <input type="hidden" name="id" id="id" value="{{ $user->id }}">
                         <div class="ibox-title">
                             <h5>Datos del Usuario</h5>
                         </div>

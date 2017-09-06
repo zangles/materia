@@ -15,9 +15,9 @@
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                <a href="" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    Nuevo usuario
+                <a href="" class="btn btn-danger" onclick="parent.history.back();">
+                    <i class="fa fa-chevron-left"></i>
+                    Volver
                 </a>
             </div>
         </div>
