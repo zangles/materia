@@ -1,16 +1,16 @@
 {
-    "name": "User",
-    "alias": "user",
+    "name": "Role",
+    "alias": "role",
     "description": "",
     "keywords": [],
     "active": 1,
-    "order": 98,
+    "order": 99,
     "providers": [
-        "Modules\\User\\Providers\\UserServiceProvider"
+        "Modules\\Role\\Providers\\RoleServiceProvider"
     ],
     "aliases": {},
     "files": [
         "start.php"
     ],
-    "requires": []
+    "requires": ["User"]
 }
