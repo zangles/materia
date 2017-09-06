@@ -1,8 +1,8 @@
 <div class="footer">
     <div class="pull-right">
-        Total Pacientes:
+        <strong>version {{ env('APP_VERSION') }}</strong>
     </div>
     <div>
-        <strong>Copyright Zangles</strong> v {{ env('APP_VERSION') }}
+        <strong>Copyright Zangles</strong>
     </div>
 </div>
