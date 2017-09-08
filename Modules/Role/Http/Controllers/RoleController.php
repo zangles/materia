@@ -4,7 +4,11 @@ namespace Modules\Role\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
+use Modules\Role\Entities\Permission;
+use Modules\Role\Entities\Role;
+use Nwidart\Modules\Facades\Module;
+use Styde\Html\Facades\Alert;
 
 class RoleController extends Controller
 {
@@ -14,7 +18,10 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('role::index');
+        $roles = Role::All();
+        $modulesPermissions = $this->getAllModulePermssions();
+
+        return view('role::index', compact('roles','modulesPermissions'));
     }
 
     /**
@@ -23,7 +30,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('role::create');
+        $modulesPermissions = $this->getAllModulePermssions();
+        return view('role::create', compact('modulesPermissions'));
     }
 
     /**
@@ -33,6 +41,22 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        $role = new Role();
+        $role->name = $request->input('rolname');
+
+        $role->save();
+
+        $permissions = $request->input('check_permission');
+        if (!is_null($permissions)) {
+            foreach ($permissions as $permission) {
+                $per = new Permission();
+                $per->key = $permission;
+
+                $role->permission()->save($per);
+            }
+        }
+
+        return redirect()->route('role.index');
     }
 
     /**
@@ -48,9 +72,13 @@ class RoleController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('role::edit');
+        $this->authorize('update', Role::class);
+
+        $role = Role::findOrFail($id);
+        $modulesPermissions = $this->getAllModulePermssions();
+        return view('role::edit', compact('role','modulesPermissions'));
     }
 
     /**
@@ -58,15 +86,57 @@ class RoleController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $this->authorize('update', Role::class);
+        $role = Role::findOrFail($id);
+
+        $this->delete($id);
+        $this->store($request);
+
+        return redirect()->route('role.index');
+
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy(Request $request ,$id)
     {
+        $this->authorize('delete', Role::class);
+
+        $this->delete($id);
+
+        $message = 'El rol fue borrado correctamente.';
+
+        if ($request->ajax()) {
+            return response()->json(['success'=>true, 'data'=>['message'=>$message]]);
+        }else{
+            Alert::success($message);
+            return redirect()->route('user.index');
+        }
+    }
+
+    /**
+     * @param $id
+     */
+    private function delete($id) {
+        $role = Role::findOrFail($id);
+        $role->delete();
+    }
+
+    /**
+     * @return array
+     */
+    private function getAllModulePermssions()
+    {
+        $permissions = [];
+
+        foreach (Module::getOrdered() as $module) {
+            $permissions[$module->name] = config($module->alias . '.ACL');
+        }
+
+        return $permissions;
     }
 }

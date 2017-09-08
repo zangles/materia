@@ -2,12 +2,10 @@
 
 namespace Modules\User\Http\Controllers;
 
-use App\Http\Requests\StoreUser;
-use App\Http\Requests\UpdateUser;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-//use Illuminate\Routing\Controller;
+use App\Http\Requests\StoreUser;
+use App\User;
 use Styde\Html\Facades\Alert;
 use App\Http\Controllers\Controller;
 

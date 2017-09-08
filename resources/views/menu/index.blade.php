@@ -8,7 +8,7 @@
                 <a href="{{ route('home') }}"><i class="fa fa-shield"></i> <span class="nav-label">Dashboard</span></a>
             </li>
             @foreach(Module::getOrdered() as $module)
-                @can('view', config($module->alias.'.PolicityClass'))
+                @can('view', Auth::user(), config($module->alias.'.PolicityClass'))
                     <li class="{{ Request::is($module->alias.'*') ? 'active' : '' }}">
                         <a href="{{ route($module->alias.'.index') }}">
                             <i class="fa {{ config($module->alias.'.icon') }}"></i>

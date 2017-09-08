@@ -47,7 +47,7 @@ class RolePolicy
      * @param  Role  $role
      * @return mixed
      */
-    public function update(User $user, Role $role)
+    public function update(User $user)
     {
         return true;
     }
@@ -59,7 +59,7 @@ class RolePolicy
      * @param  Role  $role
      * @return mixed
      */
-    public function delete(User $user, Role $role)
+    public function delete(User $user)
     {
         return true;
     }

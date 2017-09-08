@@ -12,4 +12,17 @@ class Role extends Model
     {
         return $this->hasMany('Modules\Role\Entities\Permission');
     }
+
+    public function hasPermission($permission)
+    {
+        $hasIt = false;
+
+        foreach ($this->permission()->get() as $perm) {
+            if ($permission == $perm->key) {
+                $hasIt = true;
+            }
+        }
+
+        return $hasIt;
+    }
 }
