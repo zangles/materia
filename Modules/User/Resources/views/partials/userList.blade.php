@@ -8,6 +8,9 @@
             <tr>
                 <th>Nombre</th>
                 <th>Email</th>
+                @if (Module::has('Role'))
+                    <th>Rol</th>
+                @endif
                 <th>Acciones</th>
             </tr>
             </thead>
@@ -16,6 +19,9 @@
                 <tr id="tr_{{ $user->id }}">
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
+                    @if (Module::has('Role'))
+                        <td>{{ $user->role()->first()->name }}</td>
+                    @endif
                     <td>
                         @can('update', \App\User::class)
                             <a href="{{ route('user.edit',$user) }}" class="btn btn-success" type="button" title="Editar"><i class="fa fa-edit"></i></a>

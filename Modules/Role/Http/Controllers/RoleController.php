@@ -2,6 +2,7 @@
 
 namespace Modules\Role\Http\Controllers;
 
+use DebugBar\DebugBar;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -91,8 +92,17 @@ class RoleController extends Controller
         $this->authorize('update', Role::class);
         $role = Role::findOrFail($id);
 
-        $this->delete($id);
-        $this->store($request);
+        $role->permission()->delete();
+
+        $permissions = $request->input('check_permission');
+        if (!is_null($permissions)) {
+            foreach ($permissions as $permission) {
+                $per = new Permission();
+                $per->key = $permission;
+
+                $role->permission()->save($per);
+            }
+        }
 
         return redirect()->route('role.index');
 

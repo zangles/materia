@@ -24,7 +24,7 @@ class UserPolicy
      */
     public function view(User $user)
     {
-        return true;
+        return $this->hasPermission($user, 'USER_VIEW');
     }
 
     /**
@@ -35,7 +35,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $this->hasPermission($user, 'USER_CREATE');
     }
 
     /**
@@ -46,7 +46,7 @@ class UserPolicy
      */
     public function update(User $user)
     {
-        return true;
+        return $this->hasPermission($user, 'USER_EDIT');
     }
 
     /**
@@ -57,6 +57,16 @@ class UserPolicy
      */
     public function delete(User $user)
     {
-        return true;
+        return $this->hasPermission($user, 'USER_DELETE');
+    }
+
+    public function updateRole(User $user)
+    {
+        return $this->hasPermission($user, 'USER_CHANGE_ROLE');
+    }
+
+    private function hasPermission($user, $key)
+    {
+        return ($user->role()->first()->permission()->where('key',$key)->count());
     }
 }

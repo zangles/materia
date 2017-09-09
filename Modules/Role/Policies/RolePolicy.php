@@ -24,9 +24,9 @@ class RolePolicy
      * @param  Role  $role
      * @return mixed
      */
-    public function view(User $user, Role $role)
+    public function view(User $user)
     {
-        return true;
+        return $this->hasPermission($user, 'ROLE_VIEW');
     }
 
     /**
@@ -37,7 +37,7 @@ class RolePolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $this->hasPermission($user, 'ROLE_CREATE');
     }
 
     /**
@@ -49,7 +49,7 @@ class RolePolicy
      */
     public function update(User $user)
     {
-        return true;
+        return $this->hasPermission($user, 'ROLE_EDIT');
     }
 
     /**
@@ -61,6 +61,11 @@ class RolePolicy
      */
     public function delete(User $user)
     {
-        return true;
+        return $this->hasPermission($user, 'ROLE_DELETE');
+    }
+
+    private function hasPermission($user, $key)
+    {
+        return ($user->role()->first()->permission()->where('key',$key)->count());
     }
 }

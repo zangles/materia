@@ -2,6 +2,7 @@
 
 namespace Modules\Role\Entities;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
@@ -24,5 +25,10 @@ class Role extends Model
         }
 
         return $hasIt;
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
     }
 }

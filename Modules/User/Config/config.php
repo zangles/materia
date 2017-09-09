@@ -9,5 +9,6 @@ return [
         'USER_CREATE' => '',
         'USER_EDIT' => '',
         'USER_DELETE' => '',
+        'USER_CHANGE_ROLE' => '',
     ]
 ];

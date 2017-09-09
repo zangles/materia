@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\StoreUser;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+use Modules\Role\Entities\Role;
+use Nwidart\Modules\Facades\Module;
 use Styde\Html\Facades\Alert;
 use App\Http\Controllers\Controller;
 
@@ -49,6 +52,8 @@ class UserController extends Controller
         $newUser->password = \Hash::make($request->input('password'));
 
         $newUser->save();
+
+        $this->storeModuleExtra($request, $newUser);
 
         Alert::success('El usuario fue dado de alta correctamente.');
 
@@ -105,6 +110,8 @@ class UserController extends Controller
         }
         $user->save();
 
+        $this->updateModuleExtra($request, $user);
+
         Alert::success('El usuario fue modificado correctamente.');
 
         return redirect()->route('user.index');
@@ -129,6 +136,32 @@ class UserController extends Controller
             Alert::success($message);
             return redirect()->route('user.index');
         }
+    }
 
+    public function storeModuleExtra($request, $user) {
+        if (Module::has('Role')) {
+            $roleId = $request->input('role');
+
+            $role = Role::findOrFail($roleId);
+
+            $user->role()->attach($role->id);
+            $user->save();
+        }
+    }
+
+    public function updateModuleExtra($request, $user) {
+        if (Module::has('Role')) {
+            $roleId = $request->input('role');
+
+            if ($roleId != $user->role()->first()->id) {
+                $this->authorize('updateRole', User::class);
+
+                $role = Role::findOrFail($roleId);
+
+                $user->role()->sync($role->id);
+                $user->save();
+            }
+
+        }
     }
 }
