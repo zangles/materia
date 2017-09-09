@@ -67,6 +67,11 @@ class UserPolicy
 
     private function hasPermission($user, $key)
     {
-        return ($user->role()->first()->permission()->where('key',$key)->count());
+        $userRole = $user->getUserRole();
+        if (is_null($userRole)) {
+            return false;
+        } else {
+            return ($userRole->permission()->where('key',$key)->count());
+        }
     }
 }
