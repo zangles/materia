@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'module_user' => 'Users',
+    'module_title' => 'Users',
 ];

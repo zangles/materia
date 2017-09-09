@@ -59,6 +59,8 @@
                                     <input class="form-control" id="password2" name="password2" type="password">
                                 </div>
                             </div>
+                            @include('user::partials.createModuleExtras')
+
                         </div>
                         <div class="ibox-footer text-right">
                             <input type="submit" class="btn btn-primary" value="Crear">
