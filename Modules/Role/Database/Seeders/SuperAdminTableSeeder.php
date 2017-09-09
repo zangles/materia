@@ -31,13 +31,6 @@ class SuperAdminTableSeeder extends Seeder
 
         $role->save();
 
-        foreach ($userPermissions as $userPermissionKey=>$userPermissionSons) {
-            $per = new Permission();
-            $per->key = $userPermissionKey;
-
-            $role->permission()->save($per);
-        }
-
         $user = User::find(1);
         $user->role()->attach($role->id);
         $user->save();

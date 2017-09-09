@@ -32,4 +32,34 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    public function getUserRoleName()
+    {
+        $userRole = $this->getUserRole();
+        if (is_null($userRole)) {
+            return null;
+        } else {
+            return $this->role()->first()->name;
+        }
+    }
+
+    public function getUserRoleId()
+    {
+        $userRole = $this->getUserRole();
+        if (is_null($userRole)) {
+            return null;
+        } else {
+            return $this->role()->first()->id;
+        }
+    }
+
+    public function getUserRole()
+    {
+        return $this->role()->first();
+    }
+
+    public function isSuperAdmin()
+    {
+        return ($this->getUserRoleName() == 'Super Admin');
+    }
 }

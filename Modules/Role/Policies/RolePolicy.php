@@ -10,11 +10,11 @@ class RolePolicy
 {
     use HandlesAuthorization;
 
-    public function before($user, $ability)
+    public function before(User $user, $ability)
     {
-//        if ($user->isSuperAdmin()) {
-//            return true;
-//        }
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
     }
 
     /**
@@ -66,6 +66,12 @@ class RolePolicy
 
     private function hasPermission($user, $key)
     {
-        return ($user->role()->first()->permission()->where('key',$key)->count());
+        $userRole = $user->getUserRole();
+        if (is_null($userRole)) {
+            return false;
+        } else {
+            return ($userRole->permission()->where('key',$key)->count());
+        }
+
     }
 }

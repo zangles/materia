@@ -1,4 +1,4 @@
-@if (Module::has('Role'))
+@if (in_array('Role',Module::enabled()))
     <div class="form-group">
         <label class="control-label">Rol</label>
 

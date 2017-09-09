@@ -139,7 +139,7 @@ class UserController extends Controller
     }
 
     public function storeModuleExtra($request, $user) {
-        if (Module::has('Role')) {
+        if (in_array('Role',Module::enabled())) {
             $roleId = $request->input('role');
 
             $role = Role::findOrFail($roleId);
@@ -150,7 +150,7 @@ class UserController extends Controller
     }
 
     public function updateModuleExtra($request, $user) {
-        if (Module::has('Role')) {
+        if (in_array('Role',Module::enabled())) {
             $roleId = $request->input('role');
 
             if ($roleId != $user->role()->first()->id) {

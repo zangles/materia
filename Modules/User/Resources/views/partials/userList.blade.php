@@ -8,7 +8,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Email</th>
-                @if (Module::has('Role'))
+                @if (in_array('Role',Module::enabled()))
                     <th>Rol</th>
                 @endif
                 <th>Acciones</th>
@@ -19,8 +19,8 @@
                 <tr id="tr_{{ $user->id }}">
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    @if (Module::has('Role'))
-                        <td>{{ $user->role()->first()->name }}</td>
+                    @if (in_array('Role',Module::enabled()))
+                        <td>{{ $user->getUserRoleName() }}</td>
                     @endif
                     <td>
                         @can('update', \App\User::class)
